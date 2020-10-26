@@ -84,6 +84,22 @@ export function addItem(id, options) {
 }
 
 /**
+ * Add new line items to the cart
+ * @param {object[]} items Optional values to pass to /cart/add.js
+ * @param {number} items[].id The variant's unique ID
+ * @param {number} items[].quantity The quantity of items to be added to the cart
+ * @param {object} items[].properties Line item property key/values (https://help.shopify.com/en/themes/liquid/objects/line_item#line_item-properties)
+ * @returns {Promise} Resolves with the line item objects (See response of cart/add.js https://help.shopify.com/en/themes/development/getting-started/using-ajax-api#add-to-cart)
+ */
+export function addItems(items) {
+  items = items || [];
+  for (let item in items)
+    validate.id(item.id);
+
+  return request.cartAddMultiple(items);
+}
+
+/**
  * Add a new line item to the cart from a product form
  * @param {object} form DOM element which is equal to the <form> node
  * @returns {Promise} Resolves with the line item object (See response of cart/add.js https://help.shopify.com/en/themes/development/getting-started/using-ajax-api#add-to-cart)
