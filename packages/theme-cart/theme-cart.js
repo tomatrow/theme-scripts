@@ -93,7 +93,7 @@ export function addItem(id, options) {
  */
 export function addItems(items) {
   items = items || [];
-  for (let item in items)
+  for (let item of items)
     validate.id(item.id);
 
   return request.cartAddMultiple(items);
